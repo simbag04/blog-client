@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom"
 import { Posts } from "./Posts"
 import { Login } from "./Login";
@@ -6,13 +6,16 @@ import { Register } from "./Register";
 import { Navbar } from "./Navbar";
 import { Logout } from "./Logout";
 import './styles/index.css'
+import { ApiContext } from "./App";
+
 
 export function Main () {
   const [user, setUser] = useState(null);
+  const apiLink = useContext(ApiContext);
 
   const login = async (data) => {
     try {
-      const res = await fetch("http://localhost:5000/log-in", {
+      const res = await fetch(`${apiLink}/log-in`, {
         method: 'post',
         body: JSON.stringify(data),
         headers: {
@@ -66,15 +69,14 @@ export function Main () {
   }, [])
   return (
     <HashRouter>
-      <Routes>
-        <Route path="/" element={<Navbar user={user}></Navbar>}>
-          <Route index element={<Posts user={user} setUser={setUser}/>} />
-          <Route path="/login" element={<Login login={login}/>} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/logout" element={<Logout setUser={setUser}></Logout>}></Route>
-        </Route>
-
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Navbar user={user}></Navbar>}>
+            <Route index element={<Posts user={user} setUser={setUser}/>} />
+            <Route path="/login" element={<Login login={login}/>} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout setUser={setUser}></Logout>}></Route>
+          </Route>
+        </Routes>
     </HashRouter>
   )
 }

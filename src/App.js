@@ -1,9 +1,14 @@
 import { Main } from "./Main";
+import { createContext } from "react";
+
+export const ApiContext = createContext();
 
 function App() {
   return (
     <div className="App">
-      <Main></Main>
+      <ApiContext.Provider value={ "https://blog-api-1r4y.onrender.com" }>
+        <Main></Main>
+      </ApiContext.Provider>
     </div>
   );
 }

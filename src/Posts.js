@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SinglePost } from "./SinglePost";
 import './styles/posts.css'
+import { ApiContext } from "./App";
 
 export function Posts({ user, setUser }) {
   const [posts, setPosts] = useState([]);
   const [id, setId] = useState(null);
+  const apiLink = useContext(ApiContext);
   const clickHandler = (e) => {
     setId(e.target.id);
   }
@@ -13,11 +15,11 @@ export function Posts({ user, setUser }) {
     const getPosts = async () => {
       let currPosts = null;
       if (id === null) {
-        currPosts = await fetch("http://localhost:5000/posts");
+        currPosts = await fetch(`${apiLink}/posts`);
         const json = await currPosts.json();
         setPosts(JSON.parse(json));
       } else {
-        currPosts = await fetch(`http://localhost:5000/posts/${id}`);
+        currPosts = await fetch(`${apiLink}/posts/${id}`);
         let json = await currPosts.json();
         setPosts([json.post]);
       }

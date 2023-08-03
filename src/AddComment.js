@@ -1,8 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link } from "react-router-dom";
+import { ApiContext } from "./App";
 
 export const AddComment = ({id, user, setUser, setAddComment}) => {
   const [formData, setFormData] = useState({});
+  const apiLink = useContext(ApiContext);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -18,7 +20,7 @@ export const AddComment = ({id, user, setUser, setAddComment}) => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/posts/${id}/comments`, {
+      const res = await fetch(`${apiLink}/posts/${id}/comments`, {
         method: 'post',
         body: JSON.stringify(formData),
         headers: {

@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AddComment } from "./AddComment";
 import './styles/single-post.css'
+import { ApiContext } from "./App";
 
 export const SinglePost = ({ id, setId, user, setUser }) => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
   const [addComment, setAddComment] = useState(false);
+  const apiLink = useContext(ApiContext);
 
   const allClickHandler = () => {
     setId(null);
@@ -18,11 +20,11 @@ export const SinglePost = ({ id, setId, user, setUser }) => {
   useEffect(() => {
     let currComments = null;
     const getInfo = async () => {
-      const currPosts = await fetch(`http://localhost:5000/posts/${id}`);
+      const currPosts = await fetch(`${apiLink}/posts/${id}`);
       let json = await currPosts.json();
       setPost(json.post);
 
-      currComments = await fetch(`http://localhost:5000/posts/${id}/comments`);
+      currComments = await fetch(`${apiLink}/posts/${id}/comments`);
       const commentJson = await currComments.json();
       setComments(JSON.parse(commentJson));
     }

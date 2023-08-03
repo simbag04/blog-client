@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
+import { ApiContext } from "./App";
 
 export const Register = () => {
   const nav = useNavigate();
   const [registered, setRegistered] = useState(false);
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState(null);
+  const apiLink = useContext(ApiContext)
 
   const goHome = () => {
     nav('/')
@@ -22,7 +24,7 @@ export const Register = () => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/sign-up", {
+      const res = await fetch(`${apiLink}/sign-up`, {
         method: 'post',
         body: JSON.stringify(formData),
         headers: {
