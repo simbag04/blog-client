@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom";
 
-export const Login = ({setUser}) => {
+export const Login = ({login}) => {
   const nav = useNavigate();
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState(null);
+  
+  const goHome = () => {
+    nav('/');
+  }
 
   const handleInputChange = (e) => {
     setFormData({
@@ -15,32 +20,19 @@ export const Login = ({setUser}) => {
   
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/log-in", {
-        method: 'post',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-  
-      const json = await res.json();
-      if (json.token) {
-        // save token in local storage
-        localStorage.setItem("token", json.token);
-        nav('/');
-        setUser(json.body);
-      } else {
-        setMessage(json.message);
-      }
 
-    } catch (err) {
-      console.log(err);
+    console.log(formData);
+    const result = await login(formData);
+    if (result !== "Login successful") {
+      setMessage(result)
+    } else {
+      nav('/')
     }
   }
 
   return(
-    <div>
+    <div className="login">
+      <h1>Login</h1>
       <form id="loginform" onSubmit={formSubmitHandler}>
         <label htmlFor="username">
           <input id="username" 
@@ -60,6 +52,7 @@ export const Login = ({setUser}) => {
           </input>
         </label>
         <button type="submit">Log in</button>
+        <button type="button" onClick={goHome}>Home</button>
       </form>
       <div>{message == null ? "" : message}</div>
     </div>

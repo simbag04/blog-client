@@ -11,6 +11,10 @@ export const AddComment = ({id, user, setUser, setAddComment}) => {
     })  
   }
 
+  const cancelAddHandler =  () => {
+    setAddComment(false)
+  }
+
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -36,7 +40,6 @@ export const AddComment = ({id, user, setUser, setAddComment}) => {
   return (
     <div>
       <form onSubmit={formSubmitHandler}>
-        <label htmlFor="content"></label>
         <input type="text" 
                 required={true} 
                 id="content" 
@@ -44,7 +47,11 @@ export const AddComment = ({id, user, setUser, setAddComment}) => {
                 onChange={handleInputChange}>
         </input>
         {user ?   
-          <button type="submit">Add Comment</button> : 
+          <>
+            <button type="submit">Add Comment</button>
+            <button onClick={cancelAddHandler}>Cancel</button>
+          </>
+          : 
           <div>Please <Link to="/login">login</Link> to add this comment!</div>}
       </form>
     </div>

@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const nav = useNavigate();
   const [registered, setRegistered] = useState(false);
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState(null);
+
+  const goHome = () => {
+    nav('/')
+  }
 
   const handleInputChange = (e) => {
     setFormData({
@@ -36,7 +42,8 @@ export const Register = () => {
   }
 
   return(
-    <div>
+    <div className="register">
+      <h1>Register</h1>
       {registered ? null : 
         <form id="loginform" onSubmit={formSubmitHandler}>
           <label htmlFor="username">
@@ -57,6 +64,7 @@ export const Register = () => {
             </input>
           </label>
           <button type="submit">Register</button>
+          <button type="button" onClick={goHome}>Home</button>
         </form>
       }
       <div>

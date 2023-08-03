@@ -1,0 +1,18 @@
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  align-items: center;
+  background-color: var(--header-color);
+  color: white;
+}
+
+.welcome {
+  font-size: 20px;
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+  align-items: center ;
+}
