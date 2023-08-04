@@ -3,7 +3,7 @@ import { AddComment } from "./AddComment";
 import './styles/single-post.css'
 import { ApiContext } from "./App";
 
-export const SinglePost = ({ id, setId, user, setUser }) => {
+export const SinglePost = ({ id, setId, user, setUser, formatDate }) => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
   const [addComment, setAddComment] = useState(false);
@@ -32,12 +32,12 @@ export const SinglePost = ({ id, setId, user, setUser }) => {
     getInfo().catch(console.error)
 
 
-  }, [id, addComment])
+  }, [id, addComment, apiLink])
 
   return (
     <div className="post-detail">
       {post == null ? "" :
-        <div className="">
+        <div className="post-content">
           <h1>{post.title}</h1>
           <div>{post.content}</div>
         </div>
@@ -57,7 +57,7 @@ export const SinglePost = ({ id, setId, user, setUser }) => {
             return (
               <div className="comment" key={comment._id}>
                 <div className="comment-content">{comment.content}</div>
-                <div>Written by: {comment.created_by.username}</div>
+                <div>Written by {comment.created_by.username} on {formatDate(new Date(comment.timestamp))}</div>
               </div>
             )
           })}

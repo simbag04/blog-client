@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { SinglePost } from "./SinglePost";
 import './styles/posts.css'
 import { ApiContext } from "./App";
+import format from "date-fns/format";
 
 export function Posts({ user, setUser }) {
   const [posts, setPosts] = useState([]);
@@ -9,6 +10,10 @@ export function Posts({ user, setUser }) {
   const apiLink = useContext(ApiContext);
   const clickHandler = (e) => {
     setId(e.target.id);
+  }
+
+  const formatDate = (date) => {
+    return format(date, "MMM d, yyyy h:mma")
   }
 
   useEffect(() => {
@@ -26,7 +31,7 @@ export function Posts({ user, setUser }) {
     }
 
     getPosts().catch(console.error);
-  }, [id])
+  }, [id, apiLink])
 
 
   return (
@@ -39,11 +44,12 @@ export function Posts({ user, setUser }) {
               <div className="post-summary" key={post._id}>
                 <div className="post-title">{post.title}</div>
                 <div className="post-content">{post.content}</div>
+                <div>Created by {post.created_by.username} on {formatDate(new Date(post.timestamp))}</div>
                 <button id={post._id} onClick={clickHandler}>View post</button>
               </div>
             )})}
         </div> :
-        <SinglePost id={id} setId={setId} user={user} setUser={setUser}></SinglePost>}
+        <SinglePost id={id} setId={setId} user={user} setUser={setUser} formatDate={formatDate}></SinglePost>}
     </div>
   )
 }
