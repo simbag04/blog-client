@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom";
 
 export const Login = ({login}) => {
   const nav = useNavigate();
@@ -31,7 +30,7 @@ export const Login = ({login}) => {
   }
 
   return(
-    <div className="login">
+    <div className="content-body login">
       <h1>Login</h1>
       <form id="loginform" onSubmit={formSubmitHandler}>
         <label htmlFor="username">

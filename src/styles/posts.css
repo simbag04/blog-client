@@ -32,6 +32,13 @@
   font-size: 30px;
 }
 
-.post-summary button {
+.post-summary button, .post-published {
   align-self: center;
+}
+
+.post-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  gap: 20px;
 }

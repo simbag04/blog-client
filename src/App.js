@@ -6,7 +6,7 @@ export const ApiContext = createContext();
 function App() {
   return (
     <div className="App">
-      <ApiContext.Provider value={ "https://blog-api-1r4y.onrender.com" }>
+      <ApiContext.Provider value={ "http://localhost:5000" }>
         <Main></Main>
       </ApiContext.Provider>
     </div>

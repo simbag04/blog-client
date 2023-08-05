@@ -1,43 +1,31 @@
 import { useContext, useEffect, useState } from "react";
-import { SinglePost } from "./SinglePost";
 import './styles/posts.css'
 import { ApiContext } from "./App";
-import format from "date-fns/format";
+import { Link } from "react-router-dom";
 
-export function Posts({ user, setUser }) {
+export function Posts({ user, setUser, formatDate }) {
   const [posts, setPosts] = useState([]);
-  const [id, setId] = useState(null);
   const apiLink = useContext(ApiContext);
-  const clickHandler = (e) => {
-    setId(e.target.id);
-  }
-
-  const formatDate = (date) => {
-    return format(date, "MMM d, yyyy h:mma")
-  }
 
   useEffect(() => {
     const getPosts = async () => {
-      let currPosts = null;
-      if (id === null) {
-        currPosts = await fetch(`${apiLink}/posts`);
-        const json = await currPosts.json();
-        setPosts(JSON.parse(json));
-      } else {
-        currPosts = await fetch(`${apiLink}/posts/${id}`);
-        let json = await currPosts.json();
-        setPosts([json.post]);
-      }
+      let currPosts = await fetch(`${apiLink}/posts`);
+      const json = await currPosts.json();
+      setPosts(JSON.parse(json));
+
     }
 
     getPosts().catch(console.error);
-  }, [id, apiLink])
+  }, [apiLink])
 
 
   return (
     <div className="posts-main">
-      {id == null ? <h1>Posts</h1> : null}
-      {id == null ?
+        <h1>All Posts</h1>
+        { user ? 
+          <div><Link to="/user/posts">View and edit your posts</Link></div> :
+          <div>Please <Link to="/login">login</Link> to create and edit posts!</div>
+        }
         <div className="posts">
           {posts.map((post) => {
             return (
@@ -45,11 +33,10 @@ export function Posts({ user, setUser }) {
                 <div className="post-title">{post.title}</div>
                 <div className="post-content">{post.content}</div>
                 <div>Created by {post.created_by.username} on {formatDate(new Date(post.timestamp))}</div>
-                <button id={post._id} onClick={clickHandler}>View post</button>
+                <Link to={`/post/${post._id}`}>View Post</Link>
               </div>
             )})}
-        </div> :
-        <SinglePost id={id} setId={setId} user={user} setUser={setUser} formatDate={formatDate}></SinglePost>}
+        </div>
     </div>
   )
 }

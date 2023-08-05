@@ -2,16 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { AddComment } from "./AddComment";
 import './styles/single-post.css'
 import { ApiContext } from "./App";
+import { Link, useParams } from "react-router-dom";
 
-export const SinglePost = ({ id, setId, user, setUser, formatDate }) => {
+export const SinglePost = ({ user, setUser, formatDate }) => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
   const [addComment, setAddComment] = useState(false);
+  const { pid } = useParams();
   const apiLink = useContext(ApiContext);
-
-  const allClickHandler = () => {
-    setId(null);
-  }
 
   const addClickHandler = () => {
     setAddComment(true);
@@ -20,11 +18,11 @@ export const SinglePost = ({ id, setId, user, setUser, formatDate }) => {
   useEffect(() => {
     let currComments = null;
     const getInfo = async () => {
-      const currPosts = await fetch(`${apiLink}/posts/${id}`);
+      const currPosts = await fetch(`${apiLink}/posts/${pid}`);
       let json = await currPosts.json();
       setPost(json.post);
 
-      currComments = await fetch(`${apiLink}/posts/${id}/comments`);
+      currComments = await fetch(`${apiLink}/posts/${pid}/comments`);
       const commentJson = await currComments.json();
       setComments(JSON.parse(commentJson));
     }
@@ -32,7 +30,7 @@ export const SinglePost = ({ id, setId, user, setUser, formatDate }) => {
     getInfo().catch(console.error)
 
 
-  }, [id, addComment, apiLink])
+  }, [addComment, apiLink, pid])
 
   return (
     <div className="post-detail">
@@ -42,13 +40,14 @@ export const SinglePost = ({ id, setId, user, setUser, formatDate }) => {
           <div>{post.content}</div>
         </div>
       }
-      <button onClick={allClickHandler}>View All Posts</button>
+      <Link to="/">View All Posts</Link>
 
+      
       <h2>Comments</h2>
       <div className="comments-section">
         {addComment ?
           <>
-            <AddComment id={id} user={user} setUser={setUser} setAddComment={setAddComment} />
+            <AddComment id={pid} user={user} setUser={setUser} setAddComment={setAddComment} />
           </> :
           <button onClick={addClickHandler}>Add Comment</button>
         }
@@ -63,6 +62,7 @@ export const SinglePost = ({ id, setId, user, setUser, formatDate }) => {
           })}
         </div>
       </div>
+      
     </div>
   )
 

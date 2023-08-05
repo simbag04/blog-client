@@ -44,7 +44,7 @@ export const Register = () => {
   }
 
   return(
-    <div className="register">
+    <div className="content-body register">
       <h1>Register</h1>
       {registered ? null : 
         <form id="loginform" onSubmit={formSubmitHandler}>
