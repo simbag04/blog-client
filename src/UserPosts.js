@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { ApiContext } from "./App";
 import { Link } from "react-router-dom";
+import { Post } from "./Post";
 
 export const UserPosts = ({user}) => {
   const [posts, setPosts] = useState([]);
@@ -25,17 +26,8 @@ export const UserPosts = ({user}) => {
         <Link to="/add">Add New Post</Link>
           <div className="posts">
             {posts.map((post) => {
-              return (
-                <div className="post-summary" key={post._id}>
-                  <div className="post-published">{post.published ? "Published" : "Not Published"}</div>
-                  <div className="post-title">{post.title}</div>
-                  <div className="post-content">{post.content}</div>
-                  <div className="post-buttons">
-                    <Link to={`/edit/${post._id}`}>Edit</Link>
-                    <Link to={`/delete/${post._id}`}>Delete</Link>
-                  </div>
-                </div>
-              )})} 
+              return <Post post={post} userPost={true}></Post>
+            })} 
           </div> 
         </> :
         <div>Please <Link to="/login">login</Link> to view and edit your posts!</div>}

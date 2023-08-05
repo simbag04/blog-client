@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import './styles/posts.css'
 import { ApiContext } from "./App";
 import { Link } from "react-router-dom";
+import { Post } from "./Post";
 
-export function Posts({ user, setUser, formatDate }) {
+export function Posts({ user, setUser }) {
   const [posts, setPosts] = useState([]);
   const apiLink = useContext(ApiContext);
 
@@ -28,14 +29,8 @@ export function Posts({ user, setUser, formatDate }) {
         }
         <div className="posts">
           {posts.map((post) => {
-            return (
-              <div className="post-summary" key={post._id}>
-                <div className="post-title">{post.title}</div>
-                <div className="post-content">{post.content}</div>
-                <div>Created by {post.created_by.username} on {formatDate(new Date(post.timestamp))}</div>
-                <Link to={`/post/${post._id}`}>View Post</Link>
-              </div>
-            )})}
+            return <Post post={post} viewPost={true}></Post>
+          })}
         </div>
     </div>
   )

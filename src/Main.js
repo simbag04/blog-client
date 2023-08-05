@@ -8,7 +8,6 @@ import { Logout } from "./Logout";
 import './styles/index.css'
 import { ApiContext } from "./App";
 import { SinglePost } from "./SinglePost";
-import format from "date-fns/format";
 import { UserPosts } from "./UserPosts";
 import { AddPost } from "./AddPost";
 import { EditPost } from "./EditPost";
@@ -18,11 +17,6 @@ import { DeletePost } from "./DeletePost";
 export function Main () {
   const [user, setUser] = useState(null);
   const apiLink = useContext(ApiContext);
-
-  const formatDate = (date) => {
-    return format(date, "MMM d, yyyy h:mma")
-  }
-
   const login = async (data) => {
     try {
       const res = await fetch(`${apiLink}/log-in`, {
@@ -82,9 +76,9 @@ export function Main () {
         <Routes>
           <Route path="/" element={<Navbar user={user}></Navbar>}>
             <Route index 
-              element={<Posts user={user} setUser={setUser} formatDate={formatDate}/>} />
+              element={<Posts user={user} setUser={setUser}/>} />
             <Route path="/post/:pid" 
-              element={<SinglePost user={user} setUser={setUser} formatDate={formatDate}/>} />
+              element={<SinglePost user={user} setUser={setUser}/>} />
             <Route path="/user/posts" element={<UserPosts user={user}/>}></Route>
             <Route path="/add" element={<AddPost user={user}/>} />
             <Route path="/edit/:pid" element={<EditPost user={user}/>} />

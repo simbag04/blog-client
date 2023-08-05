@@ -3,8 +3,9 @@ import { AddComment } from "./AddComment";
 import './styles/single-post.css'
 import { ApiContext } from "./App";
 import { Link, useParams } from "react-router-dom";
+import { formatDate } from "./helpers";
 
-export const SinglePost = ({ user, setUser, formatDate }) => {
+export const SinglePost = ({ user, setUser }) => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
   const [addComment, setAddComment] = useState(false);

@@ -28,7 +28,11 @@ export const EditPost = ({ user }) => {
   }, [apiLink, pid]);
 
   return (
-    <AddPost user={user} post={post}></AddPost>
+    <div>
+      {post != null && user._id === post.created_by ? 
+        <AddPost user={user} post={post}></AddPost> :
+        <div>You are not authorized to access this!</div>}
+    </div>
   )
 
 }
