@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import './styles/logout.css'
+import '../styles/logout.css'
 
 export const Logout = ({setUser}) => {
   const nav = useNavigate();

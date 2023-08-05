@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
-import { ApiContext } from "./App"
+import { ApiContext } from "../App"
 import { Link, useNavigate } from "react-router-dom";
-import './styles/addpost.css'
+import '../styles/addpost.css'
 
 export const AddPost = ({ user, post }) => {
   const nav = useNavigate();

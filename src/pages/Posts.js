@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import './styles/posts.css'
-import { ApiContext } from "./App";
+import '../styles/posts.css'
+import { ApiContext } from "../App";
 import { Link } from "react-router-dom";
-import { Post } from "./Post";
+import { Post } from "../components/Post";
 
 export function Posts({ user, setUser }) {
   const [posts, setPosts] = useState([]);

@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom"
-import { Posts } from "./Posts"
-import { Login } from "./Login";
-import { Register } from "./Register";
-import { Navbar } from "./Navbar";
-import { Logout } from "./Logout";
+import { Posts } from "./pages/Posts"
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
+import { Navbar } from "./pages//Navbar";
+import { Logout } from "./pages/Logout";
 import './styles/index.css'
 import { ApiContext } from "./App";
-import { SinglePost } from "./SinglePost";
-import { UserPosts } from "./UserPosts";
-import { AddPost } from "./AddPost";
-import { EditPost } from "./EditPost";
-import { DeletePost } from "./DeletePost";
+import { SinglePost } from "./pages/SinglePost";
+import { UserPosts } from "./pages/UserPosts";
+import { AddPost } from "./pages/AddPost";
+import { EditPost } from "./pages/EditPost";
+import { DeletePost } from "./pages/DeletePost";
 
 
 export function Main () {

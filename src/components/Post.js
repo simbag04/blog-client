@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { formatDate } from './helpers.js'
+import { formatDate } from '../helpers.js'
 
 export const Post = ({ post, userPost, viewPost }) => {
 

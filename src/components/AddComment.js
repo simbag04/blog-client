@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { Link } from "react-router-dom";
-import { ApiContext } from "./App";
+import { ApiContext } from "../App";
 
 export const AddComment = ({id, user, setUser, setAddComment}) => {
   const [formData, setFormData] = useState({});

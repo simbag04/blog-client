@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { AddComment } from "./AddComment";
-import './styles/single-post.css'
-import { ApiContext } from "./App";
+import { AddComment } from "../components/AddComment";
+import '../styles/single-post.css'
+import { ApiContext } from "../App";
 import { Link, useParams } from "react-router-dom";
-import { formatDate } from "./helpers";
+import { Comments } from "../components/Comments";
 
 export const SinglePost = ({ user, setUser }) => {
   const [post, setPost] = useState(null);
@@ -47,23 +47,11 @@ export const SinglePost = ({ user, setUser }) => {
       <h2>Comments</h2>
       <div className="comments-section">
         {addComment ?
-          <>
-            <AddComment id={pid} user={user} setUser={setUser} setAddComment={setAddComment} />
-          </> :
+          <AddComment id={pid} user={user} setUser={setUser} setAddComment={setAddComment} /> :
           <button onClick={addClickHandler}>Add Comment</button>
         }
-        <div className="comments">
-          {comments == null ? "" : comments.map((comment) => {
-            return (
-              <div className="comment" key={comment._id}>
-                <div className="comment-content">{comment.content}</div>
-                <div>Written by {comment.created_by.username} on {formatDate(new Date(comment.timestamp))}</div>
-              </div>
-            )
-          })}
-        </div>
+        <Comments comments={comments} />
       </div>
-      
     </div>
   )
 
