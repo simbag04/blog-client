@@ -15,7 +15,7 @@ export const Logout = ({setUser}) => {
   }
 
   return (
-    <div className="logout">
+    <div className="content-body">
       <h1>Logout</h1>
       <div className="logout-text">Are you sure you want to log out?</div>
       <button onClick={goHomeHandler}>Home</button>

@@ -11,6 +11,8 @@ import { SinglePost } from "./SinglePost";
 import format from "date-fns/format";
 import { UserPosts } from "./UserPosts";
 import { AddPost } from "./AddPost";
+import { EditPost } from "./EditPost";
+import { DeletePost } from "./DeletePost";
 
 
 export function Main () {
@@ -85,6 +87,8 @@ export function Main () {
               element={<SinglePost user={user} setUser={setUser} formatDate={formatDate}/>} />
             <Route path="/user/posts" element={<UserPosts user={user}/>}></Route>
             <Route path="/add" element={<AddPost user={user}/>} />
+            <Route path="/edit/:pid" element={<EditPost user={user}/>} />
+            <Route path="/delete/:pid" element={<DeletePost user={user}/>} />
             <Route path="/login" element={<Login login={login}/>} />
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<Logout setUser={setUser}></Logout>}></Route>

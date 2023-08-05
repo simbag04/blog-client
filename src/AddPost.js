@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ApiContext } from "./App"
 import { Link, useNavigate } from "react-router-dom";
 import './styles/addpost.css'
@@ -8,6 +8,12 @@ export const AddPost = ({ user, post }) => {
   const apiLink = useContext(ApiContext);
   const [message, setMessage] = useState(null);
   const [formData, setFormData] = useState({published: false});
+
+  useEffect(() => {
+    if (post != null) {
+      setFormData(post);
+    }
+  }, [post])
 
   const handleInputChange = (e) => {
     setFormData({
@@ -26,8 +32,10 @@ export const AddPost = ({ user, post }) => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${apiLink}/posts`, {
-        method: 'post',
+      const link = post ? `${apiLink}/posts/${post._id}` : `${apiLink}/posts`
+      const meth = post ? "put" : "post"
+      const res = await fetch(link, {
+        method: meth,
         body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
@@ -54,13 +62,14 @@ export const AddPost = ({ user, post }) => {
     <div className="content-body add-post-form">
       {user ? 
         <>
-          <h1>Add a Post</h1> 
+          <h1>{post ? "Edit" : "Add a"} Post</h1> 
           <form onSubmit={formSubmitHandler}>
             <label htmlFor="title">
               <input id="title"
                       type="text"
                       required={true}
                       placeholder="Title"
+                      defaultValue={post ? post.title : ""}
                       onChange={handleInputChange}>
 
               </input>
@@ -70,6 +79,7 @@ export const AddPost = ({ user, post }) => {
                         type="text"
                         required={true}
                         placeholder="Content"
+                        defaultValue={post ? post.content : ""}
                         onChange={handleInputChange}
                         rows={15}>
 
@@ -78,16 +88,16 @@ export const AddPost = ({ user, post }) => {
             <label htmlFor="published">
               <span className="published-input">
                 <div>
-                  <input type="checkbox" 
-                          id="published"
-                          onChange={handleCheckboxChange}></input> 
+                <input type="checkbox" 
+                    id="published"
+                    onChange={handleCheckboxChange} />
                 </div>
                 <div>
                   Published?
                 </div>
               </span>
             </label>
-            <button type="submit">Add Post</button>
+            <button type="submit">{post ? "Edit" : "Add"} Post</button>
             <button type="button" onClick={cancelHandler}>Cancel</button>
           </form>
         </> :
