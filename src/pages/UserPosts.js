@@ -23,10 +23,13 @@ export const UserPosts = ({user}) => {
     <div className="posts-main">
       {user ? 
       <>
-        <Link to="/add">Add New Post</Link>
+        <div className="horizontal-buttons">
+          <Link to="/add">Add New Post</Link>
+          <Link to="/">All Blog Posts</Link>
+        </div>
         <div className="posts">
           {posts.map((post) => {
-            return <Post post={post} userPost={true}></Post>
+            return <Post key={post._id} post={post} userPost={true}></Post>
           })} 
         </div> 
       </> :

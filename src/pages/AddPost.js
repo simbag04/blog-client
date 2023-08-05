@@ -97,8 +97,10 @@ export const AddPost = ({ user, post }) => {
                 </div>
               </span>
             </label>
-            <button type="submit">{post ? "Edit" : "Add"} Post</button>
-            <button type="button" onClick={cancelHandler}>Cancel</button>
+            <div className="horizontal-buttons">
+              <button type="submit">{post ? "Edit" : "Add"} Post</button>
+              <button type="button" onClick={cancelHandler}>Cancel</button>
+            </div>
           </form>
         </> :
         <div>Please <Link to="/login">login</Link> to create, view, and edit your posts!</div>}

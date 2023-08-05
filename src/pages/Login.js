@@ -50,8 +50,10 @@ export const Login = ({login}) => {
                   onChange={handleInputChange}>
           </input>
         </label>
-        <button type="submit">Log in</button>
-        <button type="button" onClick={goHome}>Home</button>
+        <div className="horizontal-buttons">
+          <button type="submit">Log in</button>
+          <button type="button" onClick={goHome}>Home</button>
+        </div>
       </form>
       <div>{message == null ? "" : message}</div>
     </div>

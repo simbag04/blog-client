@@ -47,4 +47,13 @@ input, textarea {
   border: 2px solid black;
 }
 
+.horizontal-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  justify-content: center;
+  gap: 20px;
+  align-self: center;
+}
+
 

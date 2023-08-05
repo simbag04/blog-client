@@ -65,8 +65,10 @@ export const Register = () => {
                     onChange={handleInputChange}>
             </input>
           </label>
-          <button type="submit">Register</button>
-          <button type="button" onClick={goHome}>Home</button>
+          <div className="horizontal-buttons">
+            <button type="submit">Register</button>
+            <button type="button" onClick={goHome}>Home</button>
+          </div>
         </form>
       }
       <div>

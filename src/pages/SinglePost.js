@@ -5,7 +5,7 @@ import { ApiContext } from "../App";
 import { Link, useParams } from "react-router-dom";
 import { Comments } from "../components/Comments";
 
-export const SinglePost = ({ user, setUser }) => {
+export const SinglePost = ({ user, setUser, deleteId }) => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
   const [addComment, setAddComment] = useState(false);
@@ -19,11 +19,12 @@ export const SinglePost = ({ user, setUser }) => {
   useEffect(() => {
     let currComments = null;
     const getInfo = async () => {
-      const currPosts = await fetch(`${apiLink}/posts/${pid}`);
+      const id = deleteId ? deleteId : pid;
+      const currPosts = await fetch(`${apiLink}/posts/${id}`);
       let json = await currPosts.json();
       setPost(json.post);
 
-      currComments = await fetch(`${apiLink}/posts/${pid}/comments`);
+      currComments = await fetch(`${apiLink}/posts/${id}/comments`);
       const commentJson = await currComments.json();
       setComments(JSON.parse(commentJson));
     }
@@ -31,7 +32,7 @@ export const SinglePost = ({ user, setUser }) => {
     getInfo().catch(console.error)
 
 
-  }, [addComment, apiLink, pid])
+  }, [addComment, apiLink, pid, deleteId])
 
   return (
     <div className="post-detail">
@@ -41,14 +42,16 @@ export const SinglePost = ({ user, setUser }) => {
           <div>{post.content}</div>
         </div>
       }
-      <Link to="/">View All Posts</Link>
+      {deleteId ? null : <Link to="/">View All Posts</Link>}
 
       
       <h2>Comments</h2>
       <div className="comments-section">
-        {addComment ?
-          <AddComment id={pid} user={user} setUser={setUser} setAddComment={setAddComment} /> :
-          <button onClick={addClickHandler}>Add Comment</button>
+        {!deleteId ? 
+          addComment ?
+            <AddComment id={pid} user={user} setUser={setUser} setAddComment={setAddComment} /> :
+            <button onClick={addClickHandler}>Add Comment</button>
+          : null
         }
         <Comments comments={comments} />
       </div>

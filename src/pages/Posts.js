@@ -29,7 +29,7 @@ export function Posts({ user, setUser }) {
         }
         <div className="posts">
           {posts.map((post) => {
-            return <Post post={post} viewPost={true}></Post>
+            return <Post key={post._id} post={post} viewPost={true}></Post>
           })}
         </div>
     </div>

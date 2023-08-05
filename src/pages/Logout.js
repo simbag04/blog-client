@@ -18,8 +18,10 @@ export const Logout = ({setUser}) => {
     <div className="content-body">
       <h1>Logout</h1>
       <div className="logout-text">Are you sure you want to log out?</div>
-      <button onClick={goHomeHandler}>Home</button>
-      <button onClick={logoutHandler}>Yes</button>
+      <div className="horizontal-buttons">
+        <button onClick={goHomeHandler}>Home</button>
+        <button onClick={logoutHandler}>Yes</button>
+      </div>
     </div>
   )
 }
