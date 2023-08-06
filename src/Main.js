@@ -50,27 +50,28 @@ export function Main () {
     }
   }
 
-  const verifyAuth = async () => {
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (token && user) {
-      const decodedJwt = parseJwt(token);
-      if (decodedJwt.exp * 1000 < Date.now()) {
-        localStorage.setItem("token", null);
-        localStorage.setItem("user", null);
-      } else {
-        setUser(user);
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (token && user) {
+        const decodedJwt = parseJwt(token);
+        if (decodedJwt.exp * 1000 < Date.now()) {
+          localStorage.setItem("token", null);
+          localStorage.setItem("user", null);
+        } else {
+          setUser(user);
+        }
       }
     }
-  }
 
-  useEffect(() => {
     const attemptLogin = async () => {
       await verifyAuth();
     }
 
     attemptLogin().catch(console.error);
   }, [])
+  
   return (
     <HashRouter>
         <Routes>

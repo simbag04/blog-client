@@ -16,8 +16,8 @@ export const EditPost = ({ user }) => {
       const currPosts = await fetch(`${apiLink}/posts/${pid}`);
       let json = await currPosts.json();
       setPost(json.post);
+      document.querySelector("#published").checked = json.post.published
 
-      document.querySelector("#published").checked = json.post.published;
 
       currComments = await fetch(`${apiLink}/posts/${pid}/comments`);
       const commentJson = await currComments.json();
