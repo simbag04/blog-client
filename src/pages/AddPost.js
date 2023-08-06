@@ -103,7 +103,7 @@ export const AddPost = ({ user, post }) => {
             </div>
           </form>
         </> :
-        <div>Please <Link to="/login">login</Link> to create, view, and edit your posts!</div>}
+        <div>Please <Link to="/login">login</Link> or <Link to="/register">Regsiter</Link> to create, view, and edit your posts!</div>}
         <div>
           {message == null ? "" :
             message.map((mess, index) => {

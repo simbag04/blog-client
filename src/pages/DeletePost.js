@@ -8,6 +8,9 @@ export const DeletePost = ({ user }) => {
   const apiLink = useContext(ApiContext);
   const { pid } = useParams();
 
+  const homeHandler = () => {
+    nav('/user/posts')
+  }
   const deleteHandler = async () => {
     try {
       const res = await fetch(`${apiLink}/posts/${pid}`, {
@@ -29,7 +32,7 @@ export const DeletePost = ({ user }) => {
       <h1>Are you sure you want to delete this post?</h1>
       <div className="horizontal-buttons">
         <button onClick={deleteHandler}>Yes</button>
-        <button>No, go home</button>
+        <button onClick={homeHandler}>No, go home</button>
       </div>
       <SinglePost user={user} deleteId={pid}></SinglePost>
     </div>

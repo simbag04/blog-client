@@ -25,7 +25,7 @@ export function Posts({ user, setUser }) {
         <h1>All Posts</h1>
         { user ? 
           <div><Link to="/user/posts">View and edit your posts</Link></div> :
-          <div>Please <Link to="/login">login</Link> to create and edit posts!</div>
+          <div>Please <Link to="/login">login</Link> or <Link to="/register">register</Link> to create and edit posts!</div>
         }
         <div className="posts">
           {posts.map((post) => {
